@@ -40,7 +40,6 @@ section{
 }
 
 .input_section {
-    display: none;
     flex-direction: column;
     padding: 16px;
     border-radius: 10px;
@@ -54,12 +53,25 @@ section{
 }
 
 .input_header > button.close{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding:5px;
     border:none;
     font-weight: bold;
     font-size: 2rem;
     background:none;
     color: #de4023;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: 30%;
+}
+
+.input_header > button.close:hover{
+    color: #fff;
+    background-color: #de4023;
+    transition: 0.35s ease-in;
 }
 
 .input_section > form > .input {
@@ -202,4 +214,13 @@ form > button:hover{
 .book_shelf > .book_list > .book_item > .action > .red {
     background-color: darkred;
     color: white;
+}
+
+.d-none {
+    display: none;
+    visibility: hidden;
+}
+
+.d-flex {
+    display: flex;
 }
