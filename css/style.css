@@ -211,9 +211,18 @@ form > button:hover{
     color: white;
 }
 
+.book_shelf > .book_list > .book_item > .action > .green:hover {
+    background-color: #093309;
+    transition: .5s ease-in-out;
+}
+
 .book_shelf > .book_list > .book_item > .action > .red {
     background-color: darkred;
     color: white;
+}
+
+.book_shelf > .book_list > .book_item > .action > .red:hover {
+    background-color: #570b0b;
 }
 
 .d-none {
