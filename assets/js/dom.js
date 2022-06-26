@@ -42,19 +42,15 @@ const addBook = () => {
         inputYear.value,
         inputIsComplete.checked
     );
-
+        
     books.push(book);
 
-    const completedBooksContainer = document.getElementById(COMPLETED_BOOK_ID);
-    const incompleteBooksContainr = document.getElementById(INCOMPLETED_BOOK_ID);
+    const identifier = (book.isComplete) ? COMPLETED_BOOK_ID : INCOMPLETED_BOOK_ID;
+    const bookListContainer = document.getElementById(identifier);
     const newBook = generateBookItem(book);
 
-    if (book.isComplete) {
-        completedBooksContainer.append(newBook);
-    } else {
-        incompleteBooksContainr.append(newBook);
-    }
-    
+    bookListContainer.append(newBook);
+
     updateDataToStorage();
     clearForm();
 }
@@ -64,18 +60,14 @@ const addBook = () => {
  * @return void
  */
 const refreshBookShelfData = () => {
-    const completedBooksContainer = document.getElementById(COMPLETED_BOOK_ID);
-    const incompleteBooksContainr = document.getElementById(INCOMPLETED_BOOK_ID);
-
+    console.log(books);
     for (const book of books) {
         const newBook = generateBookItem(book);
         newBook[BOOK_ID] = book.id;
-
-        if (book.isComplete) {
-            completedBooksContainer.append(newBook);
-        } else {
-            incompleteBooksContainr.append(newBook);
-        }
+        
+        const identifier = (book.isComplete) ? COMPLETED_BOOK_ID : INCOMPLETED_BOOK_ID;
+        const bookListContainer = document.getElementById(identifier);
+        bookListContainer.append(newBook);
     }
 }
 
@@ -185,7 +177,6 @@ const createIncompleteButton = (bookId) => {
  * @returns {string}
  */
 const createRemoveButton = (bookId) => {
-    const icon = './../icons/trash.svg';
     return createButton(
         'btn-remove',
         bookId,

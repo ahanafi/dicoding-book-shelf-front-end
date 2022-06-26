@@ -1,12 +1,6 @@
-let books = [];
+import Book from './Book.js';
 
-let book = {
-    id: '',
-    title: '',
-    author: '',
-    year: '',
-    isComplete: false
-};
+let books = [];
 
 const STORAGE_KEY = 'BOOKSHELF_DATA';
 
@@ -56,14 +50,7 @@ const updateDataToStorage = () => {
  * @param {boolean} isComplete 
  * @returns {Object} book
  */
-const composeBookObject = (title, author, year, isComplete) => {
-    book.id = new Date().getUTCMilliseconds();
-    book.title = title;
-    book.author = author;
-    book.year = year;
-    book.isComplete = isComplete;
-    return book;
-}
+const composeBookObject = (title, author, year, isComplete) => new Book(title, author, year, isComplete);
 
 /**
  * Filter array `books` by bookId
