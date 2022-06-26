@@ -42,7 +42,7 @@ const addBook = () => {
         inputYear.value,
         inputIsComplete.checked
     );
-        
+
     books.push(book);
 
     const identifier = (book.isComplete) ? COMPLETED_BOOK_ID : INCOMPLETED_BOOK_ID;
@@ -60,7 +60,6 @@ const addBook = () => {
  * @return void
  */
 const refreshBookShelfData = () => {
-    console.log(books);
     for (const book of books) {
         const newBook = generateBookItem(book);
         newBook[BOOK_ID] = book.id;

@@ -212,6 +212,10 @@ form > button:hover{
     margin: 8px 0;
 }
 
+.book_item .book_title {
+    font-size: 1.6rem;
+}
+
 .book_shelf > .book_list > .book_item > .action > button {
     width: 14rem;
     padding: 7.5px 14px;
@@ -266,4 +270,45 @@ form > button:hover{
 
 .d-flex {
     display: flex;
+}
+
+@media (max-width: 720px) {
+    body {
+        background: #e0c3fc;
+        height: 100vh;
+    }
+
+    .book_shelf > .book_list > .book_item {
+        flex-direction: column;
+    }
+
+    .book_shelf > .action {
+        flex-direction: row;
+    }
+    .book_shelf > .book_list > .book_item > .action > button {
+        width: 100%;
+    }
+
+    .search_section > form > input {
+        flex: 7;
+        margin-right: 10px;
+    }
+
+    .search_section > form button {
+        flex: 3;
+    }
+
+    .book_shelf > h2 {
+        margin-right: 16px;
+    }
+}
+
+@media (max-width: 570px) {
+    .book_shelf > h2 {
+        font-size: 1.2rem;
+    }
+
+    .book_item .book_title {
+        font-size: 1.1rem;
+    }
 }
