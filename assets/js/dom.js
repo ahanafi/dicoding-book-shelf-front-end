@@ -1,5 +1,4 @@
 import { composeBookObject, updateDataToStorage, books, findBook, findBookIndex } from './storage.js';
-import { getValue } from './utils.js';
 
 const INCOMPLETED_BOOK_ID = 'incompleteBookshelfList';
 const COMPLETED_BOOK_ID = 'completeBookshelfList';
@@ -224,12 +223,31 @@ const removeBookItem = (bookId) => {
     const bookIndex = findBookIndex(bookId);
     const bookItem = document.getElementById(bookId);
     books.splice(bookIndex, 1);
-    console.log(bookIndex);
 
     bookItem.remove();
     updateDataToStorage();
 }
 
+/**
+ * Search book by title
+ * @param {string} keyword 
+ */
+const searchBook = (keyword) => {
+    const bookItems = document.querySelectorAll('.book_item');
+    if (keyword !== '') {
+        bookItems.forEach(bookItem => {
+            const title = bookItem.querySelector('.book_title').textContent.toString().toLowerCase();
+            if (title.indexOf(keyword) > -1) {
+                bookItem.classList.remove('d-none');
+            } else {
+                bookItem.classList.add('d-none');
+            }
+        });
+    } else {
+        bookItems.forEach(bookItem => bookItem.classList.remove('d-none'));
+    }
+}
+
 export {
-    addBook, showBookForm, refreshBookShelfData
+    addBook, showBookForm, refreshBookShelfData, searchBook
 }

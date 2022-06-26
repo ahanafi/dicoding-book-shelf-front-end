@@ -1,4 +1,4 @@
-import { addBook, showBookForm, refreshBookShelfData } from './dom.js';
+import { addBook, showBookForm, refreshBookShelfData, searchBook } from './dom.js';
 import { isSupportStorage, loadDataFromStorage } from './storage.js'
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -14,11 +14,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeBtn = document.querySelector('.close');
     closeBtn.addEventListener('click', () => showBookForm(false));
 
+    // Search
+    const inputSearch = document.querySelector('#searchBookTitle');
+    inputSearch.addEventListener('keyup', function() {
+        searchBook(this.value.toString().toLowerCase());
+    });
+
     if (isSupportStorage()) {
         loadDataFromStorage();
     }
 });
 
-document.addEventListener('ondatasaved', () => alert('Bookshelf saved!'));
+document.addEventListener('ondatasaved', () => console.log('Bookshelf saved!'));
 
 document.addEventListener('ondataloaded', () => refreshBookShelfData());

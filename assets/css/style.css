@@ -26,6 +26,7 @@ body{
     background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
     background-repeat: no-repeat;
     background-size: cover;
+    height: 100vh;
 }
 
 main {
@@ -259,8 +260,8 @@ form > button:hover{
 }
 
 .d-none {
-    display: none;
-    visibility: hidden;
+    display: none !important;
+    visibility: hidden !important;
 }
 
 .d-flex {
