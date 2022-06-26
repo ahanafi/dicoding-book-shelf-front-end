@@ -1,4 +1,5 @@
-import { composeBookObject, updateDataToStorage, book, books } from './storage.js';
+import { composeBookObject, updateDataToStorage, books, findBook } from './storage.js';
+import { getValue } from './utils.js';
 
 const INCOMPLETED_BOOK_ID = 'incompleteBookshelfList';
 const COMPLETED_BOOK_ID = 'completeBookshelfList';
@@ -55,8 +56,8 @@ const addBook = () => {
         incompleteBooksContainr.append(newBook);
     }
     
-    clearForm();
     updateDataToStorage();
+    clearForm();
 }
 
 /**
@@ -88,18 +89,22 @@ const refreshBookShelfData = () => {
  * @return {string|element}
  */
 const generateBookItem = (book) => {
+    const bookId = book.id;
     const container = document.createElement(`article`);
     container.setAttribute('class', 'book_item');
-
+    container.setAttribute('id', bookId);
     
     const titleTag = document.createElement('h3');
+    titleTag.setAttribute('class', 'book_title');
     titleTag.textContent = book.title;
     
     const authorTag = document.createElement('p');
-    authorTag.textContent = `Penulis: ${book.author}`;
+    authorTag.setAttribute('class', 'book_author');
+    authorTag.textContent = `Author: ${book.author}`;
     
     const yearTag = document.createElement('p');
-    yearTag.textContent = `Tahun: ${book.year}`;
+    yearTag.setAttribute('class', 'book_year');
+    yearTag.textContent = `Year: ${book.year}`;
     
     const bookDataContainer = document.createElement('div');
     bookDataContainer.setAttribute('class', 'book_data');
@@ -107,11 +112,10 @@ const generateBookItem = (book) => {
         titleTag, authorTag, yearTag
     );
 
-
     const containerButton = document.createElement('div');
     containerButton.setAttribute('class', 'action');
 
-    const button = book.isComplete ? createIncompleteButton() : createCompleteButton();
+    const button = book.isComplete ? createIncompleteButton(bookId) : createCompleteButton(bookId);
 
     // Append buttons to container button
     containerButton.append(button);
@@ -128,9 +132,10 @@ const generateBookItem = (book) => {
  * @param  {string} eventListener name of listener function
  * @return {string|element}       button
  */
-const createButton = (classList, text, icon, eventListener) => {
+const createButton = (classList, id, text, icon, eventListener) => {
     const button = document.createElement('button');
     button.setAttribute('class', classList);
+    button.setAttribute('data-target', id);
     
     // Icon
     const spanIcon = document.createElement('span');
@@ -150,16 +155,48 @@ const createButton = (classList, text, icon, eventListener) => {
  * Create compltete button
  * @returns {string}
  */
-const createCompleteButton = () => {
-    return createButton('btn-complete', 'Mark as Complete', '&times;', alert);
+const createCompleteButton = (bookId) => {
+    return createButton(
+        'btn-complete',
+        bookId,
+        'Mark as Complete',
+        '&check;',
+        () => updateBookStatus(bookId)
+    );
 }
 
 /**
  * Create incomplete button
  * @returns {string}
  */
-const createIncompleteButton = () => {
-    return createButton('btn-incomplete', 'Mark as Incomplete', '&check;', alert);
+const createIncompleteButton = (bookId) => {
+    return createButton(
+        'btn-incomplete',
+        bookId,
+        'Mark as Incomplete',
+        '&times;',
+        () => updateBookStatus(bookId, false)
+    );
+}
+
+/**
+ * Set book item as completed read
+ * @param {integer} bookId 
+ */
+const updateBookStatus = (bookId, completed = true) => {
+    const identifier = completed ? COMPLETED_BOOK_ID : INCOMPLETED_BOOK_ID;
+    const bookListContainer = document.getElementById(identifier);
+    const bookItem = document.getElementById(bookId);
+    
+    const book = findBook(bookId)[0];
+    book.isComplete = completed;
+
+    const newBook = generateBookItem(book);
+
+    bookListContainer.append(newBook);
+    bookItem.remove();
+
+    updateDataToStorage();
 }
 
 export {

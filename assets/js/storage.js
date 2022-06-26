@@ -39,12 +39,23 @@ const loadDataFromStorage = () => {
     document.dispatchEvent(new Event('ondataloaded'));
 }
 
+/**
+ * Update data to localStorage
+ */
 const updateDataToStorage = () => {
     if (isSupportStorage()) {
         saveData();
     }
 }
 
+/**
+ * Create book object
+ * @param {string} title 
+ * @param {string} author 
+ * @param {integer} year 
+ * @param {boolean} isComplete 
+ * @returns {Object} book
+ */
 const composeBookObject = (title, author, year, isComplete) => {
     book.id = new Date().getUTCMilliseconds();
     book.title = title;
@@ -54,8 +65,18 @@ const composeBookObject = (title, author, year, isComplete) => {
     return book;
 }
 
+/**
+ * Filter array `books` by bookId
+ * @param {integer} bookId 
+ * @returns {array} of books
+ */
 const findBook = (bookId) => books.filter(book => book.id === bookId);
 
+/**
+ * Find index of book by bookID
+ * @param {integer} bookId 
+ * @returns index
+ */
 const findBookIndex = (bookId) => {
     let index = 0;
     for (const book of books) {
@@ -69,7 +90,6 @@ const findBookIndex = (bookId) => {
 
 export {
     books,
-    book,
     composeBookObject,
     isSupportStorage,
     saveData,
