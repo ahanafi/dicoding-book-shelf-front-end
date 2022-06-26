@@ -220,12 +220,17 @@ const updateBookStatus = (bookId, completed = true) => {
  * @param {integr} bookId 
  */
 const removeBookItem = (bookId) => {
-    const bookIndex = findBookIndex(bookId);
-    const bookItem = document.getElementById(bookId);
-    books.splice(bookIndex, 1);
-
-    bookItem.remove();
-    updateDataToStorage();
+    const askConfirm = confirm('Are you sure want to remove this?');
+    if (askConfirm) {
+        const bookIndex = findBookIndex(bookId);
+        const bookItem = document.getElementById(bookId);
+        books.splice(bookIndex, 1);
+    
+        bookItem.remove();
+        updateDataToStorage();
+    }
+    
+    return false;
 }
 
 /**
