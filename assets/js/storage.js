@@ -45,7 +45,7 @@ const updateDataToStorage = () => {
     }
 }
 
-const createBook = (title, author, year, isComplete) => {
+const composeBookObject = (title, author, year, isComplete) => {
     book.id = new Date().getUTCMilliseconds();
     book.title = title;
     book.author = author;
@@ -68,13 +68,13 @@ const findBookIndex = (bookId) => {
 }
 
 export {
-    book,
     books,
+    book,
+    composeBookObject,
     isSupportStorage,
     saveData,
     loadDataFromStorage,
     updateDataToStorage,
-    createBook,
     findBook,
     findBookIndex
 }
