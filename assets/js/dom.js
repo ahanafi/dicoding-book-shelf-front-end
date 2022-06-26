@@ -1,4 +1,4 @@
-import { composeBookObject, updateDataToStorage, books, findBook } from './storage.js';
+import { composeBookObject, updateDataToStorage, books, findBook, findBookIndex } from './storage.js';
 import { getValue } from './utils.js';
 
 const INCOMPLETED_BOOK_ID = 'incompleteBookshelfList';
@@ -116,9 +116,10 @@ const generateBookItem = (book) => {
     containerButton.setAttribute('class', 'action');
 
     const button = book.isComplete ? createIncompleteButton(bookId) : createCompleteButton(bookId);
+    const buttonRemove = createRemoveButton(bookId);
 
     // Append buttons to container button
-    containerButton.append(button);
+    containerButton.append(button, buttonRemove);
 
     // Append all elements to container
     container.append(bookDataContainer, containerButton);
@@ -174,9 +175,25 @@ const createIncompleteButton = (bookId) => {
         'btn-incomplete',
         bookId,
         'Mark as Incomplete',
-        '&times;',
+        '&#33;',
         () => updateBookStatus(bookId, false)
     );
+}
+
+/**
+ * Create remove button
+ * @param {integer} bookId 
+ * @returns {string}
+ */
+const createRemoveButton = (bookId) => {
+    const icon = './../icons/trash.svg';
+    return createButton(
+        'btn-remove',
+        bookId,
+        'Remove item',
+        '&times;',
+        () => removeBookItem(bookId)
+    )
 }
 
 /**
@@ -196,6 +213,20 @@ const updateBookStatus = (bookId, completed = true) => {
     bookListContainer.append(newBook);
     bookItem.remove();
 
+    updateDataToStorage();
+}
+
+/**
+ * Remove book from lists
+ * @param {integr} bookId 
+ */
+const removeBookItem = (bookId) => {
+    const bookIndex = findBookIndex(bookId);
+    const bookItem = document.getElementById(bookId);
+    books.splice(bookIndex, 1);
+    console.log(bookIndex);
+
+    bookItem.remove();
     updateDataToStorage();
 }
 

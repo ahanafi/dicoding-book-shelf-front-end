@@ -231,6 +231,26 @@ form > button:hover{
     color: #fff;
 }
 
+/* Button incomplete */
+.action > .btn-incomplete {
+    border:3px solid #93c5fc !important;
+    color: #93c5fc !important;
+}
+.action > .btn-incomplete:hover {
+    color: #fff !important;
+    background: #93c5fc !important;
+}
+
+/* Button remove */
+.action > .btn-remove {
+    border:3px solid #de4023 !important;
+    color: #de4023 !important;
+}
+.action > .btn-remove:hover {
+    color: #fff !important;
+    background: #de4023 !important;
+}
+
 .btn-icon {
     font-size: 2rem;
     width: 20px;
