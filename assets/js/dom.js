@@ -51,8 +51,17 @@ const addBook = () => {
 
     bookListContainer.append(newBook);
 
+    // Show alert
+    Swal.fire({
+        icon: 'success',
+        title: 'Yosh!',
+        text: 'Your book has been successfully added!',
+        timer: 3000
+    });
+
     updateDataToStorage();
     clearForm();
+    showBookForm(false);
 }
 
 /**
@@ -210,15 +219,24 @@ const updateBookStatus = (bookId, completed = true) => {
  * @param {integr} bookId 
  */
 const removeBookItem = (bookId) => {
-    const askConfirm = confirm('Are you sure want to remove this?');
-    if (askConfirm) {
-        const bookIndex = findBookIndex(bookId);
-        const bookItem = document.getElementById(bookId);
-        books.splice(bookIndex, 1);
-    
-        bookItem.remove();
-        updateDataToStorage();
-    }
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, remove it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const bookIndex = findBookIndex(bookId);
+            const bookItem = document.getElementById(bookId);
+            books.splice(bookIndex, 1);
+        
+            bookItem.remove();
+            updateDataToStorage();
+        }
+    });
     
     return false;
 }
