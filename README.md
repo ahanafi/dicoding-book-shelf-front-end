@@ -1,2 +1,1 @@
-# dicoding-book-shelf-front-end
-Dicoding Submission - Belajar Membuat Front-End Web untuk Pemula
+# Dicoding Submission Belajar Membuat Front-End Web Untuk Pemula
